@@ -1,0 +1,2 @@
+Izvrsena je rezervacija na ime  , za film   u terminu   .
+Broj sedista je  
