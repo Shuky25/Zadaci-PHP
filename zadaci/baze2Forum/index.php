@@ -148,32 +148,30 @@ $mejlErr = $pswErr = $imeErr = $prezErr = $prijavaErr = "";
 
 
         if(isset($_POST['prijava'])) {
+            require './baza/konekcija.php';
             $email = "";
             $psw = "";
             $ime = "";
             $prezime = "";
-            if(!empty($_POST['email']) && !empty($_POST['password'])) {
-
+            if(!empty($_POST['emailp']) && !empty($_POST['passwordp'])) {
                 $email = $_POST['emailp'];
                 $psw = $_POST['passwordp'];
 
-                require './baza/konekcija.php';
-                $sql = "SELECT * FROM korisnik";
-                $req = mysqli_query($conn, $sql);
-                echo $email . " " . $psw;
+                $sql = "SELECT * FROM korisnik WHERE email = '$email'";
+                $result = mysqli_query($conn, $sql);
 
-                while($row = mysqli_fetch_assoc($req)) {
-                    /* if($row['email'] == $email) {
-                        if($row['password'] == $psw) {
-                            echo "Uspesno ste prijavljeni";
-                        } else {
-                            echo "Sifra nije dobra";
-                        }
-                    }else {
-                        echo "Nije prijavljeno";
-                    } */
-                    echo $row['email'];
-                }
+                if (mysqli_num_rows($result) > 0) {
+                    // output data of each row
+                    while($row = mysqli_fetch_assoc($result)) {
+                    	//echo "id: " . $row["email"] . " " . $row["password"]. "<br>";
+						if ($psw == $row['password'])
+							echo "Uspesno ste se ulogovali!";
+						else
+							echo "Lozinka nije tacna";
+                    }
+                  } else {
+                    echo "Korsnik ne postoji";
+                  }
             }
         }
     }
