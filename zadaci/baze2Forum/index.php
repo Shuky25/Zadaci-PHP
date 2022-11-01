@@ -58,12 +58,12 @@ $mejlErr = $pswErr = $imeErr = $prezErr = $prijavaErr = "";
 
             <div class="container">
                 <label for="email"><b>E mail:</b></label>
-                <input type="email" placeholder="Unesi email" name="email" required>
+                <input type="email" placeholder="Unesi email" name="emailp" required>
 
                 <label for="psw"><b>Password: </b></label>
-                <input type="password" placeholder="Unesi sifru" name="password" required>
+                <input type="password" placeholder="Unesi sifru" name="passwordp" required>
 
-                <input id="prijava" type="submit" name="prijava" value="Prijavi se" />Prijavi se
+                <input id="prijava" type="submit" name="prijava" value="Prijavi se" />
             </div>
 
             <div class="container" style="background-color:#f1f1f1">
@@ -116,7 +116,11 @@ $mejlErr = $pswErr = $imeErr = $prezErr = $prijavaErr = "";
 
         /* registracija */
         if(isset($_POST['registracija'])) {
-            
+            $email = "";
+            $psw = "";
+            $ime = "";
+            $prezime = "";
+            $password1 = "";
             /* unos u polja */
             if(!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['password1']) && !empty($_POST['ime']) && !empty($_POST['prezime'])) {
                 
@@ -127,7 +131,7 @@ $mejlErr = $pswErr = $imeErr = $prezErr = $prijavaErr = "";
                 $prezime = $_POST['prezime'];
 
                 if($psw != $password1) {
-                    $pswErr = "Sifre se ne podudaraju";
+                    echo "Sifre se ne podudaraju";
                 }
                 else {
                     require './baza/konekcija.php';
@@ -137,6 +141,38 @@ $mejlErr = $pswErr = $imeErr = $prezErr = $prijavaErr = "";
                     }else {
                         echo 'Greska pri unosu';
                     }
+                }
+            }
+        }
+
+
+
+        if(isset($_POST['prijava'])) {
+            $email = "";
+            $psw = "";
+            $ime = "";
+            $prezime = "";
+            if(!empty($_POST['email']) && !empty($_POST['password'])) {
+
+                $email = $_POST['emailp'];
+                $psw = $_POST['passwordp'];
+
+                require './baza/konekcija.php';
+                $sql = "SELECT * FROM korisnik";
+                $req = mysqli_query($conn, $sql);
+                echo $email . " " . $psw;
+
+                while($row = mysqli_fetch_assoc($req)) {
+                    /* if($row['email'] == $email) {
+                        if($row['password'] == $psw) {
+                            echo "Uspesno ste prijavljeni";
+                        } else {
+                            echo "Sifra nije dobra";
+                        }
+                    }else {
+                        echo "Nije prijavljeno";
+                    } */
+                    echo $row['email'];
                 }
             }
         }
