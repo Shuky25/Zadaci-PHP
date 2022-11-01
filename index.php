@@ -12,7 +12,10 @@
 <body>
     <ul>
         <li>    
-            <a href="zadaci/baze/index.php">Baze 1</a>
+            <a href="zadaci/baze/index.php">Bioskop baza</a>
+        </li>
+        <li>    
+            <a href="zadaci/baze2Forum/index.php">Forum baza</a>
         </li>
     </ul>
 </body>
