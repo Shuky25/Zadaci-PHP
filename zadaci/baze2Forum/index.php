@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+session_start();
 $mejlErr = $pswErr = $imeErr = $prezErr = $prijavaErr = "";
 ?>
 <html lang="en">
@@ -8,22 +9,22 @@ $mejlErr = $pswErr = $imeErr = $prezErr = $prijavaErr = "";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CSS only -->
+    <!-- CSS only  -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link rel="stylesheet" href="layout/style.css">
+    <link rel="stylesheet" href="./layout/style.css">
     <title>Forum</title>
 </head>
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg bg-light">
+        <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Navbar</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav m-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav m-auto">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="./index.php">Pocetna</a>
                         </li>
@@ -34,10 +35,10 @@ $mejlErr = $pswErr = $imeErr = $prezErr = $prijavaErr = "";
                             <a class="nav-link" href="#">Link 2</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Kontakt</a>
+                            <a class="nav-link" href="pages/contact.php">Kontakt</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link">O nama</a>
+                            <a class="nav-link" href="#">O nama</a>
                         </li>
                     </ul>
                     <button id="reg" onclick="document.getElementById('id02').style.display='block'">Registruj se</button>
@@ -64,11 +65,6 @@ $mejlErr = $pswErr = $imeErr = $prezErr = $prijavaErr = "";
                 <input type="password" placeholder="Unesi sifru" name="passwordp" required>
 
                 <input id="prijava" type="submit" name="prijava" value="Prijavi se" />
-            </div>
-
-            <div class="container" style="background-color:#f1f1f1">
-                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-                <span class="psw">Forgot <a href="#">password?</a></span>
             </div>
             <?php echo $prijavaErr; ?>
         </form>
@@ -101,11 +97,6 @@ $mejlErr = $pswErr = $imeErr = $prezErr = $prijavaErr = "";
 
                 <input id="prijava" type="submit" value="Registruj se" name="registracija" />
                 <button id="log" onclick="PrijaviSe()">Prijavi se</button>
-            </div>
-
-            <div class="container" style="background-color:#f1f1f1">
-                <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
-
             </div>
         </form>
     </div>
@@ -164,13 +155,16 @@ $mejlErr = $pswErr = $imeErr = $prezErr = $prijavaErr = "";
                     // output data of each row
                     while($row = mysqli_fetch_assoc($result)) {
                     	//echo "id: " . $row["email"] . " " . $row["password"]. "<br>";
-						if ($psw == $row['password'])
-							echo "Uspesno ste se ulogovali!";
+						if ($psw == $row['password']){
+                            $_SESSION['ime'] = $row['ime'];
+                            $_SESSION['prezime'] = $row['prezime'];
+							echo "Uspesno ste se ulogovali " . $_SESSION['ime'];
+                        }
 						else
-							echo "Lozinka nije tacna";
+							echo "<script>alert('Pogresna lozinka, pokusajte ponovo!');</script>";
                     }
                   } else {
-                    echo "Korsnik ne postoji";
+                    echo "<script>alert('Ovaj korisnik ne postoji, registrujte se!');</script>";
                   }
             }
         }
@@ -178,10 +172,13 @@ $mejlErr = $pswErr = $imeErr = $prezErr = $prijavaErr = "";
     
     ?>
 
+    <footer>
+        <p>&copy; by Vojin Sundovic</p>
+    </footer>
 
     <script src="./script/script.js"></script>
 
-    <!-- JavaScript Bundle with Popper -->
+     <!-- JavaScript Bundle with Popper  -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 

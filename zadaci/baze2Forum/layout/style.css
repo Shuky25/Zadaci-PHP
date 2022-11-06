@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+header nav {
+    background-color: #d3d3d3;
+}
+
 #reg {
     border: 2px solid rgb(81, 100, 153);
     color: #fff;
@@ -206,4 +210,14 @@ span.password {
     color: rgb(81, 100, 153);
     background-color: transparent;
     cursor: pointer;
+}
+
+footer p {
+    color: #333;
+    text-align: center;
+    padding: 20px;
+}
+
+footer {
+    background-color: #d3d3d3;
 }
