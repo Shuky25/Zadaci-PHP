@@ -44,7 +44,7 @@ $mejlErr = $pswErr = $imeErr = $prezErr = $prijavaErr = "";
                     <button class="navPrijava" id="reg" onclick="document.getElementById('id02').style.display='block'">Registruj se</button>
                     <button class="navLogin" id="log" onclick="document.getElementById('id01').style.display='block'">Prijavi se</button>
                     <!-- <input type="submit" class="navOdjava" id="log" style="display: none;" value="Odjavi se" name="odjaviSe"> -->
-                    <button class="navLogin" id="log">Odjavi se</button>
+                    <button class="navOdjava" id="log" onclick="document.getElementById('id03').style.display='block'" style="display: none;">Odjavi se</button>
                 </div>
             </div>
         </nav>
@@ -103,11 +103,27 @@ $mejlErr = $pswErr = $imeErr = $prezErr = $prijavaErr = "";
         </form>
     </div>
 
+    <!-- modul 3 -->
+    <div id="id03" class="modal">
+
+        <form class="modal-content animate" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <div class="imgcontainer">
+                <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
+                <h2>Odjava</h2>
+            </div>
+
+            <div class="container" style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                <label for="odjaviSe" style="text-align: center;"><b>Da li ste sigurni da zelite da se odjavite?</b></label>
+                <input type="submit" name="odjaviSe" value="Odjavi se" id="reg" class="navLogin" >
+            </div>
+        </form>
+    </div>
+
     <?php
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-        /* registracija */
+        /* === registracija === */
         if (isset($_POST['registracija'])) {
             $email = "";
             $psw = "";
@@ -127,18 +143,27 @@ $mejlErr = $pswErr = $imeErr = $prezErr = $prijavaErr = "";
                     echo "<script>alert('Sifre se ne podudaraju');</script>";
                 } else {
                     require './baza/konekcija.php';
-                    $sql = "INSERT INTO korisnik(email, password, ime, prezime) VALUES('$email', '$psw', '$ime', '$prezime')";
-                    if (mysqli_query($conn, $sql)) {
-                        echo "<script>alert('Polje uneseno u bazu');</script>";
+                    $sql = "SELECT * FROM korisnik WHERE email = '$email'";
+                    $result = mysqli_query($conn, $sql);
+
+                    if (mysqli_num_rows($result) == 0) {
+                        
+                        $sql = "INSERT INTO korisnik(email, password, ime, prezime) VALUES('$email', '$psw', '$ime', '$prezime')";
+                        if (mysqli_query($conn, $sql)) {
+                            echo "<script>alert('Polje uneseno u bazu');</script>";
+                        } else {
+                            echo "<script>alert('Greska pri unosu');</script>";
+                        }
                     } else {
-                        echo "<script>alert('Greska pri unosu');</script>";
+                        echo "<script>alert('Kornisk postoji u bazi');</script>";
                     }
+                    
                 }
             }
         }
 
 
-
+        /* === logovanje === */
         if (isset($_POST['prijava'])) {
             require './baza/konekcija.php';
             $email = "";
@@ -178,18 +203,15 @@ $mejlErr = $pswErr = $imeErr = $prezErr = $prijavaErr = "";
             }
         }
 
-        /* if (isset($_POST['odjaviSe'])) {
+        /* === odjava === */
+        if(isset($_POST['odjaviSe'])) {
             session_destroy();
-            echo "<script>
-                    alert('Uspesno odjavljen');
-                    let prijava = document.querySelector('.navPrijava');
-                    let login = document.querySelector('.navLogin');
-                    let odjava = document.querySelector('.navOdjava');
-                    prijava.style.display = 'block';
-                    login.style.display = 'block';
-                    odjava.style.display = 'none';
-                </script>";
-        } */
+            echo "<script>alert('Uspesno ste se odjavili');
+            document.querySelector('.navPrijava').style.display = 'block';
+            document.querySelector('.navLogin').style.display = 'block';
+            document.querySelector('.navOdjava').style.display = 'none';
+            </script>";
+        }
     }
 
     ?>
