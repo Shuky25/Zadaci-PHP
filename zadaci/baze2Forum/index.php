@@ -41,8 +41,10 @@ $mejlErr = $pswErr = $imeErr = $prezErr = $prijavaErr = "";
                             <a class="nav-link" href="#">O nama</a>
                         </li>
                     </ul>
-                    <button id="reg" onclick="document.getElementById('id02').style.display='block'">Registruj se</button>
-                    <button id="log" onclick="document.getElementById('id01').style.display='block'">Prijavi se</button>
+                    <button class="navPrijava" id="reg" onclick="document.getElementById('id02').style.display='block'">Registruj se</button>
+                    <button class="navLogin" id="log" onclick="document.getElementById('id01').style.display='block'">Prijavi se</button>
+                    <!-- <input type="submit" class="navOdjava" id="log" style="display: none;" value="Odjavi se" name="odjaviSe"> -->
+                    <button class="navLogin" id="log">Odjavi se</button>
                 </div>
             </div>
         </nav>
@@ -51,7 +53,7 @@ $mejlErr = $pswErr = $imeErr = $prezErr = $prijavaErr = "";
     <!-- modul 1 -->
     <div id="id01" class="modal">
 
-        <form class="modal-content animate" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+        <form class="modal-content animate" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="imgcontainer">
                 <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
                 <h2>Login</h2>
@@ -73,7 +75,7 @@ $mejlErr = $pswErr = $imeErr = $prezErr = $prijavaErr = "";
     <!-- modul 2 -->
     <div id="id02" class="modal">
 
-        <form class="modal-content animate" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+        <form class="modal-content animate" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="imgcontainer">
                 <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
                 <h2>Register</h2>
@@ -102,35 +104,34 @@ $mejlErr = $pswErr = $imeErr = $prezErr = $prijavaErr = "";
     </div>
 
     <?php
-    
-    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         /* registracija */
-        if(isset($_POST['registracija'])) {
+        if (isset($_POST['registracija'])) {
             $email = "";
             $psw = "";
             $ime = "";
             $prezime = "";
             $password1 = "";
             /* unos u polja */
-            if(!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['password1']) && !empty($_POST['ime']) && !empty($_POST['prezime'])) {
-                
+            if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['password1']) && !empty($_POST['ime']) && !empty($_POST['prezime'])) {
+
                 $email = $_POST['email'];
                 $psw = $_POST['password'];
                 $password1 = $_POST['password1'];
                 $ime = $_POST['ime'];
                 $prezime = $_POST['prezime'];
 
-                if($psw != $password1) {
-                    echo "Sifre se ne podudaraju";
-                }
-                else {
+                if ($psw != $password1) {
+                    echo "<script>alert('Sifre se ne podudaraju');</script>";
+                } else {
                     require './baza/konekcija.php';
                     $sql = "INSERT INTO korisnik(email, password, ime, prezime) VALUES('$email', '$psw', '$ime', '$prezime')";
                     if (mysqli_query($conn, $sql)) {
-                        echo "Polje uneseno u bazu";
-                    }else {
-                        echo 'Greska pri unosu';
+                        echo "<script>alert('Polje uneseno u bazu');</script>";
+                    } else {
+                        echo "<script>alert('Greska pri unosu');</script>";
                     }
                 }
             }
@@ -138,39 +139,64 @@ $mejlErr = $pswErr = $imeErr = $prezErr = $prijavaErr = "";
 
 
 
-        if(isset($_POST['prijava'])) {
+        if (isset($_POST['prijava'])) {
             require './baza/konekcija.php';
             $email = "";
             $psw = "";
             $ime = "";
             $prezime = "";
-            if(!empty($_POST['emailp']) && !empty($_POST['passwordp'])) {
+            if (!empty($_POST['emailp']) && !empty($_POST['passwordp'])) {
                 $email = $_POST['emailp'];
                 $psw = $_POST['passwordp'];
 
                 $sql = "SELECT * FROM korisnik WHERE email = '$email'";
                 $result = mysqli_query($conn, $sql);
 
-                if (mysqli_num_rows($result) > 0) {
+                if (mysqli_num_rows($result) != 0) {
                     // output data of each row
-                    while($row = mysqli_fetch_assoc($result)) {
-                    	//echo "id: " . $row["email"] . " " . $row["password"]. "<br>";
-						if ($psw == $row['password']){
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        //echo "id: " . $row["email"] . " " . $row["password"]. "<br>";
+                        if ($psw == $row['password']) {
                             $_SESSION['ime'] = $row['ime'];
                             $_SESSION['prezime'] = $row['prezime'];
-							echo "Uspesno ste se ulogovali " . $_SESSION['ime'];
-                        }
-						else
-							echo "<script>alert('Pogresna lozinka, pokusajte ponovo!');</script>";
+                            echo "<script>
+                                alert('Uspesno ulogovan');
+                                let prijava = document.querySelector('.navPrijava');
+                                let login = document.querySelector('.navLogin');
+                                let odjava = document.querySelector('.navOdjava');
+                                prijava.style.display = 'none';
+                                login.style.display = 'none';
+                                odjava.style.display = 'block';
+                            </script>";
+                            include "./pages/tema.php";
+                        } else
+                            echo "<script>alert('Pogresna lozinka, pokusajte ponovo!');</script>";
                     }
-                  } else {
+                } else {
                     echo "<script>alert('Ovaj korisnik ne postoji, registrujte se!');</script>";
-                  }
+                }
             }
         }
+
+        /* if (isset($_POST['odjaviSe'])) {
+            session_destroy();
+            echo "<script>
+                    alert('Uspesno odjavljen');
+                    let prijava = document.querySelector('.navPrijava');
+                    let login = document.querySelector('.navLogin');
+                    let odjava = document.querySelector('.navOdjava');
+                    prijava.style.display = 'block';
+                    login.style.display = 'block';
+                    odjava.style.display = 'none';
+                </script>";
+        } */
     }
-    
+
     ?>
+
+    <section id="home">
+
+    </section>
 
     <footer>
         <p>&copy; by Vojin Sundovic</p>
@@ -178,7 +204,7 @@ $mejlErr = $pswErr = $imeErr = $prezErr = $prijavaErr = "";
 
     <script src="./script/script.js"></script>
 
-     <!-- JavaScript Bundle with Popper  -->
+    <!-- JavaScript Bundle with Popper  -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 
