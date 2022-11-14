@@ -44,7 +44,7 @@
             mysqli_query($conn, $sql);
             $html = ispis();
         }
-        echo $html;
+        //echo $html;
     ?>
     </div>
     <h2 style="text-align: center;"><b>JE L' MOZE 5?</b></h2>

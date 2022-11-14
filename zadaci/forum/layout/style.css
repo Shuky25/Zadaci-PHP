@@ -32,6 +32,15 @@ header nav .col-md-6 a:hover {
     color: #808080;
 }
 
+section#tema {
+    width: 90%;
+    margin: 50px auto 0 auto;
+}
+
+section#tema h1 {
+    text-align: center;
+}
+
 section#forma {
     height: 80vh;
     display: flex;
@@ -39,7 +48,7 @@ section#forma {
     justify-content: center;
 }
 
-section#forma .container {
+section#tema, section#forma .container {
     background-color: #fff;
     border-radius: 20px;
     padding: 20px;
@@ -60,4 +69,9 @@ section#forma .container form .form-control {
     border: none;
     background-color: transparent;
     text-align: center;
+}
+
+section#forma .container form input[type=text] {
+    padding: 10px 20px;
+    width: 90%;
 }

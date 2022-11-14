@@ -1,7 +1,18 @@
 <!DOCTYPE html>
 <?php 
 session_start(); 
-$email = $psw = $ime = $prezime = $_SESSION['ime'] = $_SESSION['prezime'] = "";
+if(empty($_SESSION['ime'])) {
+    $email = $psw = $ime = $prezime = $_SESSION['ime'] = $_SESSION['prezime'] = $_SESSION['mejl'] = $_SESSION['sifra'] = "";
+}
+else {
+    $email = $psw = $ime = $prezime = "";
+}
+
+function izlogujSe() {
+    $email = $psw = $ime = $prezime = $_SESSION['ime'] = $_SESSION['prezime'] = "";
+    session_destroy();
+}
+
 ?>
 <html lang="en">
 
@@ -40,12 +51,22 @@ $email = $psw = $ime = $prezime = $_SESSION['ime'] = $_SESSION['prezime'] = "";
                         </ul>
                     </div>
                     <div class="col-md-6">
-                        <a><?php echo $_SESSION['ime'] . " " . $_SESSION['prezime']; ?></a>
+                        <a style="color: #fff" href="./php/logout.php"><?php echo $_SESSION['ime'] . " " . $_SESSION['prezime']; ?></a>
                     </div>
                 </nav>
             </div>
         </div>
     </header>
+
+    <section id="tema">
+        <div class="container">
+            <h1>Teme</h1>
+            <hr>
+            <div class="row">
+                <p>ovde ce se ispisati teme</p>
+            </div>
+        </div>
+    </section>
 
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
