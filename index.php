@@ -22,6 +22,9 @@
         <li>    
             <a href="zadaci/baze2Forum/index.php">Forum baza</a>
         </li>
+        <li>    
+            <a href="zadaci/forum/index.php">Forum novi</a>
+        </li>
     </ul>
     </div>
 
