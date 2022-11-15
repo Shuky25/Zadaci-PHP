@@ -102,6 +102,7 @@ $stanje = "";
 
     <section id="forma" data-aos="fade-up">
         <div class="container">
+            <h1>Register</h1>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                 <div class="form-control">
                     <label for="email">Email:</label><br>

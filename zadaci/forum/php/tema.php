@@ -80,7 +80,7 @@ function izlogujSe()
         </div>
     </header>
 
-    <section id="tema">
+    <section id="tema" data-aos="fade-up">
         <div class="container">
             <h1>Teme</h1>
             <hr>
@@ -110,7 +110,7 @@ function izlogujSe()
                 ?>
             </div>
 
-            <div class="row">
+            <div class="row" id="teme">
                 <?php
                 
                 if (!empty($_SESSION['ime']) || $_SESSION['ime'] != "") {
