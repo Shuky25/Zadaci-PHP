@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<?php 
-session_start(); 
-if(empty($_SESSION['ime'])) {
+<?php
+session_start();
+if (empty($_SESSION['ime'])) {
     $email = $psw = $ime = $prezime = $_SESSION['ime'] = $_SESSION['prezime'] = $_SESSION['mejl'] = $_SESSION['sifra'] = "";
-}
-else {
+} else {
     $email = $psw = $ime = $prezime = "";
 }
 
-function izlogujSe() {
+function izlogujSe()
+{
     $email = $psw = $ime = $prezime = $_SESSION['ime'] = $_SESSION['prezime'] = "";
     session_destroy();
 }
@@ -20,6 +20,7 @@ function izlogujSe() {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
@@ -46,6 +47,9 @@ function izlogujSe() {
                                 <a class="nav-link" href="./php/login.php">Login</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="./php/tema.php">Teme</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="../../index.php">Pocetak</a>
                             </li>
                         </ul>
@@ -60,13 +64,41 @@ function izlogujSe() {
 
     <section id="tema">
         <div class="container">
-            <h1>Teme</h1>
+            <h1>Pocetna</h1>
             <hr>
             <div class="row">
-                <p>ovde ce se ispisati teme</p>
+                <?php
+                require './php/konekcija.php';
+                $i = 0;
+                $sql = "SELECT * FROM teme";
+                $res = mysqli_query($conn, $sql);
+                if(mysqli_num_rows($res) > 0) {
+                    echo '<div class="row">';
+                    while ($row = mysqli_fetch_assoc($res)) {
+                        if($i < 3) {
+                            echo '<div class="col-md-4 style="border: 2px solid #d3d3d3; border-radius: 20px;">';
+                            echo  '<h2>' . $row['naziv_teme'] . '</h2>';
+                            echo   '<p> ' . $row['opis_teme'] . ' </p>';
+                            echo    '</div>';
+                        }
+                        else {
+                            $i = 0;
+                            echo '</div>';
+                            echo '<div class="row">';
+                        }
+                    }
+                } else {
+                    echo '<p>Nema tema za prikaz!</p>';
+                }
+                ?>
             </div>
         </div>
     </section>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
 
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>

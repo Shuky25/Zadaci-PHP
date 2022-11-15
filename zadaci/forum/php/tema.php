@@ -6,6 +6,13 @@ if (empty($_SESSION['ime'])) {
 } else {
     $stanje = $email = $psw = $ime = $prezime = "";
 }
+
+function izlogujSe()
+{
+    $email = $psw = $ime = $prezime = $_SESSION['ime'] = $_SESSION['prezime'] = "";
+    session_destroy();
+}
+
 ?>
 <html lang="en">
 
@@ -14,47 +21,34 @@ if (empty($_SESSION['ime'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
     <link rel="stylesheet" href="../layout/style.css">
-    <title>Login</title>
+
+    <title>Diskusija</title>
 </head>
 
 <body>
+
     <?php
-    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    if($_SERVER['REQUEST_METHOD'] == "POST") {
+        require './konekcija.php';
+        $naslov = $_POST['naziv_teme'];
+        $opis = $_POST['opis_teme'];
+        $datum = date("H:i:s d.m.Y");
+        $email = $_SESSION['email'];
 
-        if (empty($_SESSION['ime']) || $_SESSION['ime'] == "") {
-            require "./konekcija.php";
-            $email = $_POST['email'];
-            $psw = $_POST['psw'];
-
-            $sql = "SELECT * FROM korisnici WHERE email = '$email' LIMIT 1";
-            $res = mysqli_query($conn, $sql);
-
-            if (mysqli_num_rows($res) > 0) {
-
-                while ($row = mysqli_fetch_assoc($res)) {
-
-                    if ($psw == $row['password']) {
-                        $_SESSION['ime'] = $row['ime'];
-                        $_SESSION['prezime'] = $row['prezime'];
-                        $_SESSION['email'] = $row['email'];
-                        $_SESSION['psw'] = $row['password'];
-                        header("location: ../index.php");
-                        exit();
-                    } else {
-                        $stanje = "Sifre se ne podudaraju";
-                    }
-                }
-            }
+        $sql = "INSERT INTO teme(naziv_teme, opis_teme, datum_kreiranja, email) VALUES('$naslov', '$opis', '$datum', '$email')";
+        if(mysqli_query($conn, $sql)) {
+            header('location: tema.php');
+            exit();
         } else {
-            $stanje = "Vec ste ulogovani!";
+            $stanje = "Tema nije usena!";
         }
     }
     ?>
+
     <header>
         <div class="container">
             <div class="row">
@@ -79,29 +73,42 @@ if (empty($_SESSION['ime'])) {
                         </ul>
                     </div>
                     <div class="col-md-6">
-                        <a style="color: #fff;" href="./logout.php">
-                            <?php echo $_SESSION['ime'] . " " . $_SESSION['prezime']; ?>
-                        </a>
+                        <a style="color: #fff" href="./logout.php"><?php echo $_SESSION['ime'] . " " . $_SESSION['prezime']; ?></a>
                     </div>
                 </nav>
             </div>
         </div>
     </header>
 
-    <section id="forma" data-aos="fade-up">
+    <section id="tema">
         <div class="container">
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-                <div class="form-control">
-                    <label for="email">Email:</label><br>
-                    <input type="text" placeholder="Unesite mejl" name="email"><br>
-                </div>
-                <div class="form-control">
-                    <label for="email">Sifra:</label><br>
-                    <input type="text" placeholder="Unesite sifru" name="psw"><br>
-                </div>
-                <button type="submit" class="btn btn-primary">Loguj se</button>
-                <?php echo $stanje; ?>
-            </form>
+            <h1>Teme</h1>
+            <hr>
+            <div class="row">
+
+                <?php
+                if (!empty($_SESSION['ime']) || $_SESSION['ime'] != "") {
+                    echo '<section id="forma" data-aos="fade-up">
+                    <div class="container">
+                        <form action="'. htmlspecialchars($_SERVER["PHP_SELF"]) .'" method="POST">
+                            <div class="form-control">
+                                <label for="email">Naslov teme:</label><br>
+                                <input type="text" placeholder="Unesite temu" name="naziv_teme"><br>
+                            </div>
+                            <div class="form-control">
+                                <label for="email">Opis teme:</label><br>
+                                <textarea name="opis_teme" id="opis_teme" cols="30" rows="10" style="width: 90%; padding: 20px;" placeholder="Unesi opis"></textarea><br>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Objavi temu</button>
+                            '. $stanje . '
+                        </form>
+                    </div>
+                </section>';
+                } else {
+                    echo '<p>Morate se <a href="./login.php">ulogovati</a> da bi dodali temu!</p>';
+                }
+                ?>
+            </div>
         </div>
     </section>
 

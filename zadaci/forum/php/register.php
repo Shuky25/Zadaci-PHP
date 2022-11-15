@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <?php
 session_start();
+if(empty($_SESSION['ime'])) {
+    $email = $psw = $ime = $prezime = $_SESSION['ime'] = $_SESSION['prezime'] = $_SESSION['mejl'] = $_SESSION['sifra'] = "";
+}
+else {
+    $email = $psw = $ime = $prezime = "";
+}
 $stanje = "";
 ?>
 <html lang="en">
@@ -77,12 +83,15 @@ $stanje = "";
                                 <a class="nav-link" href="./login.php">Login</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="./tema.php">Teme</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="../../../index.php">Pocetak</a>
                             </li>
                         </ul>
                     </div>
                     <div class="col-md-6">
-                        <a>
+                        <a style="color: #fff;" href="./logout.php">
                             <?php echo $_SESSION['ime'] . " " . $_SESSION['prezime']; ?>
                         </a>
                     </div>
