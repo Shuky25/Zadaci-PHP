@@ -32,15 +32,15 @@ function izlogujSe()
 <body>
 
     <?php
-    if($_SERVER['REQUEST_METHOD'] == "POST") {
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
         require './konekcija.php';
         $naslov = $_POST['naziv_teme'];
         $opis = $_POST['opis_teme'];
         $datum = date("H:i:s d.m.Y");
-        $email = $_SESSION['email'];
+        $email = $_SESSION['mejl'];
 
         $sql = "INSERT INTO teme(naziv_teme, opis_teme, datum_kreiranja, email) VALUES('$naslov', '$opis', '$datum', '$email')";
-        if(mysqli_query($conn, $sql)) {
+        if (mysqli_query($conn, $sql)) {
             header('location: tema.php');
             exit();
         } else {
@@ -90,7 +90,7 @@ function izlogujSe()
                 if (!empty($_SESSION['ime']) || $_SESSION['ime'] != "") {
                     echo '<section id="forma" data-aos="fade-up">
                     <div class="container">
-                        <form action="'. htmlspecialchars($_SERVER["PHP_SELF"]) .'" method="POST">
+                        <form action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '" method="POST">
                             <div class="form-control">
                                 <label for="email">Naslov teme:</label><br>
                                 <input type="text" placeholder="Unesite temu" name="naziv_teme"><br>
@@ -100,12 +100,35 @@ function izlogujSe()
                                 <textarea name="opis_teme" id="opis_teme" cols="30" rows="10" style="width: 90%; padding: 20px;" placeholder="Unesi opis"></textarea><br>
                             </div>
                             <button type="submit" class="btn btn-primary">Objavi temu</button>
-                            '. $stanje . '
+                            ' . $stanje . '
                         </form>
                     </div>
                 </section>';
                 } else {
                     echo '<p>Morate se <a href="./login.php">ulogovati</a> da bi dodali temu!</p>';
+                }
+                ?>
+            </div>
+
+            <div class="row">
+                <?php
+                
+                if (!empty($_SESSION['ime']) || $_SESSION['ime'] != "") {
+                    require './konekcija.php';
+                    $mejl = $_SESSION['mejl'];
+                    $sql = "SELECT * FROM teme WHERE email = '$mejl'";
+                    $res = mysqli_query($conn, $sql);
+                    if (mysqli_num_rows($res) > 0) {
+                        while ($row = mysqli_fetch_assoc($res)) {
+                            echo '<div style="border: 2px solid #d3d3d3; border-radius: 10px; margin: 20px; padding: 20px;">';
+                            echo  '<a href="#"><h2>' . $row['naziv_teme'] . '</h2></a>';
+                            echo '<hr style="width: 90%; margin: 10px auto 30px auto;">';
+                            echo   '<p> ' . $row['opis_teme'] . ' </p>';
+                            echo    '</div>';
+                        }
+                    } else {
+                        echo '<p>Ovaj korisnik nema dodatih tema</p>';
+                    }
                 }
                 ?>
             </div>

@@ -41,7 +41,7 @@ if (empty($_SESSION['ime'])) {
                     if ($psw == $row['password']) {
                         $_SESSION['ime'] = $row['ime'];
                         $_SESSION['prezime'] = $row['prezime'];
-                        $_SESSION['email'] = $row['email'];
+                        $_SESSION['mejl'] = $row['email'];
                         $_SESSION['psw'] = $row['password'];
                         header("location: ../index.php");
                         exit();

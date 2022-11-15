@@ -73,18 +73,13 @@ function izlogujSe()
                 $sql = "SELECT * FROM teme";
                 $res = mysqli_query($conn, $sql);
                 if(mysqli_num_rows($res) > 0) {
-                    echo '<div class="row">';
                     while ($row = mysqli_fetch_assoc($res)) {
                         if($i < 3) {
-                            echo '<div class="col-md-4 style="border: 2px solid #d3d3d3; border-radius: 20px;">';
-                            echo  '<h2>' . $row['naziv_teme'] . '</h2>';
+                            echo '<div style="border: 2px solid #d3d3d3; border-radius: 10px; margin: 20px; padding: 20px;">';
+                            echo  '<a href="#"><h2>' . $row['naziv_teme'] . '</h2></a>';
+                            echo '<hr style="width: 90%; margin: 10px auto 30px auto;">';
                             echo   '<p> ' . $row['opis_teme'] . ' </p>';
                             echo    '</div>';
-                        }
-                        else {
-                            $i = 0;
-                            echo '</div>';
-                            echo '<div class="row">';
                         }
                     }
                 } else {
