@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2022 at 09:30 AM
+-- Generation Time: Nov 18, 2022 at 02:00 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -20,6 +20,26 @@ SET time_zone = "+00:00";
 --
 -- Database: `forum_c`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `komentari`
+--
+
+CREATE TABLE `komentari` (
+  `id` int(11) NOT NULL,
+  `id_teme` int(11) NOT NULL,
+  `tekst` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `komentari`
+--
+
+INSERT INTO `komentari` (`id`, `id_teme`, `tekst`) VALUES
+(1, 0, 'dawdasd'),
+(2, 0, 'dwadsd');
 
 -- --------------------------------------------------------
 
@@ -62,14 +82,20 @@ CREATE TABLE `teme` (
 
 INSERT INTO `teme` (`id`, `naziv_teme`, `opis_teme`, `datum_kreiranja`, `email`) VALUES
 (1, '', '', '08:45:38 15.11.2022', ''),
-(2, 'Naslov 2', '', '08:47:57 15.11.2022', ''),
-(3, 'Naslov 3', '', '08:49:29 15.11.2022', ''),
+(2, 'Naslov 2', 'Ovde je opis teme 2. Suki je doktor ove igrice', '08:47:57 15.11.2022', 'vojin@gmail.com'),
+(3, 'Naslov 3', 'A ovde ce biti opis teme 3. Opet je suki doktor ove igrice', '08:49:29 15.11.2022', 'vojin@gmail.com'),
 (4, 'Naslov 4', 'Konacno bi trebalo da radi', '08:50:50 15.11.2022', 'vojin@gmail.com'),
-(5, 'Kako ne unositi podatke ponovo u input polje?', 'Šundović će da objasni za 5.', '08:57:57 15.11.2022', '');
+(5, 'Kako ne unositi podatke ponovo u input polje?', 'Šundović će da objasni za 5.', '08:57:57 15.11.2022', 'bilja.djokic@gmail.com');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `komentari`
+--
+ALTER TABLE `komentari`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `korisnici`
@@ -86,6 +112,12 @@ ALTER TABLE `teme`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `komentari`
+--
+ALTER TABLE `komentari`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `teme`

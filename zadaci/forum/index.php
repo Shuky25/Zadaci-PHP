@@ -76,9 +76,10 @@ function izlogujSe()
                     while ($row = mysqli_fetch_assoc($res)) {
                         if($i < 3) {
                             echo '<div style="border: 2px solid #d3d3d3; border-radius: 10px; margin: 20px; padding: 20px;">';
-                            echo  '<a href="#"><h2>' . $row['naziv_teme'] . '</h2></a>';
+                            echo  '<a href="./php/diskusija.php?id=' . $row['id'] . '"><h2>' . $row['naziv_teme'] . '</h2></a>';
                             echo '<hr style="width: 90%; margin: 10px auto 30px auto;">';
                             echo   '<p> ' . $row['opis_teme'] . ' </p>';
+                            echo   '<p> <b>Auror:</b> ' . $row['email'] . ' <b>Datum objave: </b>' . $row['datum_kreiranja'] . ' </p>';
                             echo    '</div>';
                         }
                     }

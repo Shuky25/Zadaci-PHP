@@ -11,5 +11,5 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 if (!$conn) {
   die("Greska: " . mysqli_connect_error());
 }
-echo "Usesno konektovano";
+//echo "Usesno konektovano";
 ?> 
