@@ -16,8 +16,7 @@ if (empty($_SESSION['ime'])) {
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
     <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
     <link rel="stylesheet" href="../layout/style.css">
     <title>Diskusija</title>
@@ -26,19 +25,27 @@ if (empty($_SESSION['ime'])) {
 <body>
 
     <?php
-    if($_SERVER['REQUEST_METHOD'] == "POST") {
+    if (!empty($_GET['id'])) {
+
+        $_SESSION['idT'] = $_GET['id'];
+        $id_teme = $_SESSION['idT'];
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
         $komentar = "";
-        if($_SESSION['ime'] != "" || !empty($_SESSION['ime'])) {
-            if(!empty($_POST['komentar']) || $komentar != "") {
-                $id = $_GET['id'];
+        if ($_SESSION['ime'] != "" || !empty($_SESSION['ime'])) {
+            if (!empty($_POST['komentar']) || $komentar != "") {
                 require './konekcija.php';
                 $komentar = $_POST['komentar'];
-                $sql = "INSERT INTO komentari(id_teme, tekst) VALUES('$id', '$komentar')";
-                if(mysqli_query($conn, $sql)) {
+                $id_teme = $_SESSION['idT'];
+                $autor = $_SESSION['ime'] . " " . $_SESSION['prezime'];
+                $sql = "INSERT INTO komentari(id_teme, tekst, autor) VALUES('$id_teme', '$komentar', '$autor')";
+                if (mysqli_query($conn, $sql)) {
                     echo 'Komentar je dodat';
                     header("location: ../index.php");
                     exit();
-                }else {
+                } else {
                     echo 'Komentar nije dodat';
                     header("location: ../index.php");
                     exit();
@@ -46,12 +53,11 @@ if (empty($_SESSION['ime'])) {
             } else {
                 $komentarErr = "Morate napisati komentar";
             }
-        }
-        else {
+        } else {
             echo '<script>alert("Morate biti ulogovani!");</script>';
         }
     }
-    
+
     ?>
 
     <header>
@@ -90,8 +96,8 @@ if (empty($_SESSION['ime'])) {
     <section id="tema">
         <?php
         require './konekcija.php';
-        $id = $_GET['id'];
-        $sql = "SELECT * FROM teme WHERE id = '$id' LIMIT 1";
+        $id_teme = $_SESSION['idT'];
+        $sql = "SELECT * FROM teme WHERE id = '$id_teme' LIMIT 1";
         $res = mysqli_query($conn, $sql);
         if (mysqli_num_rows($res) > 0) {
             while ($row = mysqli_fetch_assoc($res)) {
@@ -107,20 +113,21 @@ if (empty($_SESSION['ime'])) {
                         </form>
                     </div>
                 ';
-                $sql1 = "SELECT * FROM komentari WHERE id_teme = '$id'";
+                $sql1 = "SELECT * FROM komentari WHERE id_teme = '$id_teme'";
                 $res1 = mysqli_query($conn, $sql1);
-                if(mysqli_num_rows($res1) > 0) {
+                if (mysqli_num_rows($res1) > 0) {
                     echo '<h3 style="text-align: center;">Komentari</h3>';
                     while ($row1 = mysqli_fetch_assoc($res1)) {
-                        echo 'Autor: ' . $row['email'];
-                        echo 'Komentar: ' . $row1['tekst'];
+                        echo '<hr style="margin: 50px auto; width: 70%">';
+                        echo '<p><b>Autor:</b> ' . $row1['autor'] . "</p>";
+                        echo '<p><b>Komentar:</b> ' . $row1['tekst'] . "</p>";
                     }
-                }else {
+                } else {
                     echo '<p>Nema komentara</p>';
                 }
             }
-
-
+        } else {
+            echo "<h1>Nema teme</h1>";
         }
         ?>
     </section>
@@ -131,9 +138,7 @@ if (empty($_SESSION['ime'])) {
     </script>
 
     <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 
 </html>
