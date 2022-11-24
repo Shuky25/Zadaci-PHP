@@ -21,6 +21,7 @@ function izlogujSe()
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
@@ -91,11 +92,51 @@ function izlogujSe()
         </div>
     </section>
 
+    <!-- <footer>
+        <p id="footerText"></p>
+        <div class="container">
+            <div class="row">
+                <div id="formaMejl" class="col-md-6">
+                    <h2>Posalji mejl</h2>
+                    <hr>
+                    <form action="./php/mejl.php" method="post">
+                        <div class="form-control">
+                            <label for="mejl">Vas mejl: </label><br>
+                            <input type="email" name="formaMejl" placeholder="Unesi mejl">
+                        </div>
+                        <div class="form-control">
+                            <label for="poruka">Vasa poruka: </label><br>
+                            <textarea name="formaPoruka" id="poruka" cols="30" rows="10" placeholder="Unesi poruku"></textarea>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Posalji mejl</button>
+                    </form>
+                </div>
+                <div id="socialMedia" class="col-md-6">
+                    <h2>Zaprati nas</h2>
+                    <hr>
+                    <ul id="socialMediaList">
+                        <li>
+                            <a href="#" class="fa fa-facebook"></a>
+                        </li>
+                        <li>
+                            <a href="#" class="fa fa-instagram"></a>
+                        </li>
+                        <li>
+                            <a href="#" class="fa fa-youtube"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer> -->
+
+    <?php include "./php/components/footer.php"; ?>
+
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init();
     </script>
-
+    <script src="js/script.js"></script>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>

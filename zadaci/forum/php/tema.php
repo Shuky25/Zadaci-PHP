@@ -21,6 +21,7 @@ function izlogujSe()
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
@@ -97,7 +98,7 @@ function izlogujSe()
                             </div>
                             <div class="form-control">
                                 <label for="email">Opis teme:</label><br>
-                                <textarea name="opis_teme" id="opis_teme" cols="30" rows="10" style="width: 90%; padding: 20px;" placeholder="Unesi opis"></textarea><br>
+                                <textarea name="opis_teme" id="opis_teme" cols="30" rows="10" style="width: 90%; padding: 20px; border: 1px solid #333; background-color: #fff; color: black;" placeholder="Unesi opis"></textarea><br>
                             </div>
                             <button type="submit" class="btn btn-primary">Objavi temu</button>
                             ' . $stanje . '
@@ -134,6 +135,8 @@ function izlogujSe()
             </div>
         </div>
     </section>
+
+    <?php include "./components/footer.php"; ?>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>

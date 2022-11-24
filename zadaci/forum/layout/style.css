@@ -34,7 +34,7 @@ header nav .col-md-6 a:hover {
 
 section#tema {
     width: 90%;
-    margin: 50px auto 0 auto;
+    margin: 50px auto;
 }
 
 section#tema h1 {
@@ -76,4 +76,89 @@ section#forma .container form .form-control {
 section#forma .container form input[type=text] {
     padding: 10px 20px;
     width: 90%;
+}
+
+footer {
+    background-color: #333;
+}
+
+footer p {
+    text-align: center;
+    margin: 0;
+    padding: 20px 40px;
+    color: #d3d3d3;
+    font-size: 20px;
+}
+
+footer .container .row .col-md-6 h2 {
+    color: #fff;
+    text-align: center;
+    font-size: 30px;
+}
+
+footer .container .row .col-md-6 hr {
+    color: #d3d3d3;
+    width: 90%;
+    display: block;
+    margin: 20px auto;
+}
+
+footer .container .row .col-md-6 .form-control {
+    background-color: transparent;
+    border: 0;
+}
+
+footer .container .row .col-md-6 form .form-control label {
+    color: #fff;
+    text-align: center;
+    display: block;
+}
+
+footer .container .row .col-md-6 form .form-control input, textarea {
+    padding: 10px;
+    border: none;
+    border-bottom: 2px solid #d3d3d3;
+    outline: none;
+    background-color: rgb(85, 85, 85);
+    color: #fff;
+    display: block;
+    margin: auto;
+    width: 90%;
+}
+
+footer .container .row .col-md-6 form .form-control input:focus, textarea:focus {
+    border-color: #fff;
+}
+
+footer .container .row .col-md-6 form button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    border-width: 3px;
+    transition: .2s;
+}
+
+footer .container .row .col-md-6 form button:hover {
+    background-color: transparent;
+    color: #d3d3d3;
+}
+
+footer .container .row .col-md-6 #socialMediaList {
+    list-style: none;
+}
+
+footer .container .row .col-md-6 #socialMediaList li a {
+    font-size: 40px;
+    color: #979797;
+    text-align: center;
+    text-decoration: none;
+    transition: .2s;
+    display: block;
+    margin: 40px auto;
+    text-align: center;
+}
+
+footer .container .row .col-md-6 #socialMediaList li a:hover {
+    color: #fff;
+    cursor: pointer;
 }
