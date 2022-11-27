@@ -85,9 +85,8 @@ if (empty($_SESSION['ime'])) {
                         </ul>
                     </div>
                     <div class="col-md-6">
-                        <a style="color: #fff;" href="./logout.php">
-                            <?php echo $_SESSION['ime'] . " " . $_SESSION['prezime']; ?>
-                        </a>
+                            <a style="color: #fff" href="./nalog.php"><?php echo '<img src="../img/' . $_SESSION['slika'] . '" alt="" style="width: 50px; margin: 0 20px;" />' . $_SESSION['ime'] . " " . $_SESSION['prezime']; ?></a>
+                        
                     </div>
                 </nav>
             </div>

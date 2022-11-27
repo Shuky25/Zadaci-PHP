@@ -32,21 +32,25 @@ header nav .col-md-6 a:hover {
     color: #808080;
 }
 
-section#tema {
+section#tema,
+section#nalog {
     width: 90%;
     margin: 50px auto;
 }
 
-section#tema h1 {
+section#tema h1,
+section#nalog h1 {
     text-align: center;
 }
 
-section#forma  {
+section#forma {
     height: 80vh;
     margin-top: 50px;
 }
 
-section#tema, section#forma .container {
+section#tema,
+section#forma .container,
+section#nalog {
     background-color: #fff;
     border-radius: 20px;
     padding: 20px;
@@ -76,6 +80,82 @@ section#forma .container form .form-control {
 section#forma .container form input[type=text] {
     padding: 10px 20px;
     width: 90%;
+}
+
+section#nalog .container .col-md-6 {
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+
+section#nalog .container .col-md-6 .slika {
+    width: 150px;
+    height: 150px;
+    margin: auto;
+}
+
+section#nalog .container .col-md-6 .slika #slika {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #d3d3d3;
+    margin: auto;
+
+    opacity: 1;
+    display: block;
+    /*width: 100%;
+    height: auto;*/
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+
+section#nalog .container .col-md-6 .middle {
+    position: relative;
+    width: 150px;
+    margin-top: -80px;
+    opacity: 0;
+    transition: .2s;
+}
+
+section#nalog .container .col-md-6 .middle a {
+    color: #333;
+    cursor: pointer;
+    font-size: 30px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 0;
+}
+
+section#nalog .container .col-md-6 .slika:hover #slika {
+    opacity: .2;
+}
+
+section#nalog .container .col-md-6 .slika:hover .middle {
+    opacity: 1;
+}
+
+section#nalog .container .col-md-6 .ime {
+    margin-top: 40px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+section#nalog .container .col-md-6 a {
+    color: #333;
+    text-decoration: none;
+    font-size: 40px;
+    text-align: center;
+    display: block;
+    margin: 30px auto;
+    transition: .2s;
+}
+
+section#nalog .container .col-md-6 a:hover {
+    cursor: pointer;
+    color: #757575;
 }
 
 footer {
@@ -114,7 +194,8 @@ footer .container .row .col-md-6 form .form-control label {
     display: block;
 }
 
-footer .container .row .col-md-6 form .form-control input, textarea {
+footer .container .row .col-md-6 form .form-control input,
+textarea {
     padding: 10px;
     border: none;
     border-bottom: 2px solid #d3d3d3;
@@ -126,7 +207,8 @@ footer .container .row .col-md-6 form .form-control input, textarea {
     width: 90%;
 }
 
-footer .container .row .col-md-6 form .form-control input:focus, textarea:focus {
+footer .container .row .col-md-6 form .form-control input:focus,
+textarea:focus {
     border-color: #fff;
 }
 

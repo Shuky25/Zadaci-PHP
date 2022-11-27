@@ -2,7 +2,7 @@
 <?php
 session_start();
 if(empty($_SESSION['ime'])) {
-    $email = $psw = $ime = $prezime = $_SESSION['ime'] = $_SESSION['prezime'] = $_SESSION['mejl'] = $_SESSION['sifra'] = "";
+    $email = $psw = $ime = $prezime = $_SESSION['ime'] = $_SESSION['prezime'] = $_SESSION['mejl'] = $_SESSION['sifra'] = $_SESSION['slika'] = "";
 }
 else {
     $email = $psw = $ime = $prezime = "";
@@ -44,12 +44,13 @@ $stanje = "";
                 if ($_SESSION['ime'] != "" || !empty($_SESSION['ime'])) {
                     $stanje = "Vec ste ulogovani!";
                 } else {
+                    $_SESSION['slika'] = "user.png";
                     $_SESSION['ime'] = $ime;
                     $_SESSION['prezime'] = $prezime;
                     $stanje = "Dobrodosli, " . $_SESSION['ime'] . " " . $_SESSION['prezime'];
 
                     require 'konekcija.php';
-                    $sql = "INSERT INTO korisnici VALUES('$email', '$psw', '$ime', '$prezime')";
+                    $sql = "INSERT INTO korisnici(email, password, ime, prezime) VALUES('$email', '$psw', '$ime', '$prezime')";
 
                     if (mysqli_query($conn, $sql)) {
                         header("location: ../index.php");
@@ -91,9 +92,9 @@ $stanje = "";
                         </ul>
                     </div>
                     <div class="col-md-6">
-                        <a style="color: #fff;" href="./logout.php">
-                            <?php echo $_SESSION['ime'] . " " . $_SESSION['prezime']; ?>
-                        </a>
+                            
+                            <a style="color: #fff" href="./nalog.php"><?php echo '<img src="../img/' . $_SESSION['slika'] . '" alt="" style="width: 50px; margin: 0 20px;" />' . $_SESSION['ime'] . " " . $_SESSION['prezime']; ?></a>
+                        
                     </div>
                 </nav>
             </div>
