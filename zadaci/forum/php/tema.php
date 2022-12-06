@@ -27,7 +27,7 @@ function izlogujSe()
 
     <link rel="stylesheet" href="../layout/style.css">
 
-    <title>Diskusija</title>
+    <title>Teme</title>
 </head>
 
 <body>
