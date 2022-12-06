@@ -85,8 +85,7 @@ if (empty($_SESSION['ime'])) {
                         </ul>
                     </div>
                     <div class="col-md-6">
-                            <a style="color: #fff" href="./nalog.php"><?php echo '<img src="../img/' . $_SESSION['slika'] . '" alt="" style="width: 50px; margin: 0 20px;" />' . $_SESSION['ime'] . " " . $_SESSION['prezime']; ?></a>
-                        
+                        <a style="color: #fff" href="./php/nalog.php"><?php echo $_SESSION['ime'] . " " . $_SESSION['prezime']; ?></a>
                     </div>
                 </nav>
             </div>
@@ -94,14 +93,15 @@ if (empty($_SESSION['ime'])) {
     </header>
 
     <section id="tema">
-        <?php
-        require './konekcija.php';
-        $id_teme = $_SESSION['idT'];
-        $sql = "SELECT * FROM teme WHERE id = '$id_teme' LIMIT 1";
-        $res = mysqli_query($conn, $sql);
-        if (mysqli_num_rows($res) > 0) {
-            while ($row = mysqli_fetch_assoc($res)) {
-                echo '<h2>' . $row['naziv_teme'] . '</h2>
+        <div class="container">
+            <?php
+            require './konekcija.php';
+            $id_teme = $_SESSION['idT'];
+            $sql = "SELECT * FROM teme WHERE id = '$id_teme' LIMIT 1";
+            $res = mysqli_query($conn, $sql);
+            if (mysqli_num_rows($res) > 0) {
+                while ($row = mysqli_fetch_assoc($res)) {
+                    echo '<h2>' . $row['naziv_teme'] . '</h2>
                     <hr>
                     <p> ' . $row['opis_teme'] . ' </p>
                     <hr>
@@ -113,23 +113,27 @@ if (empty($_SESSION['ime'])) {
                         </form>
                     </div>
                 ';
-                $sql1 = "SELECT * FROM komentari WHERE id_teme = '$id_teme'";
-                $res1 = mysqli_query($conn, $sql1);
-                if (mysqli_num_rows($res1) > 0) {
-                    echo '<h3 style="text-align: center;">Komentari</h3>';
-                    while ($row1 = mysqli_fetch_assoc($res1)) {
-                        echo '<hr style="margin: 50px auto; width: 70%">';
-                        echo '<p><b>Autor:</b> ' . $row1['autor'] . "</p>";
-                        echo '<p><b>Komentar:</b> ' . $row1['tekst'] . "</p>";
+                    $sql1 = "SELECT * FROM komentari WHERE id_teme = '$id_teme'";
+                    $res1 = mysqli_query($conn, $sql1);
+                    if (mysqli_num_rows($res1) > 0) {
+                        echo '<h3 style="text-align: center;">Komentari</h3>';
+                        while ($row1 = mysqli_fetch_assoc($res1)) {
+                            echo '<hr style="margin: 50px auto; width: 70%">';
+                            echo '<div class="row">';
+                            echo '<p><b>Autor:</b> ' . $row1['autor'] . "</p>";
+                            echo '<p><b>-</b> ' . $row1['tekst'] . "</p>";
+                            echo '</div>';
+                        }
+                    } else {
+                        echo '<p>Nema komentara</p>';
                     }
-                } else {
-                    echo '<p>Nema komentara</p>';
                 }
+            } else {
+                echo "<h1>Nema teme</h1>";
             }
-        } else {
-            echo "<h1>Nema teme</h1>";
-        }
-        ?>
+            ?>
+        </div>
+
     </section>
 
     <?php include "./components/footer.php"; ?>

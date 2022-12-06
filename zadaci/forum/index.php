@@ -56,7 +56,7 @@ function izlogujSe()
                         </ul>
                     </div>
                     <div class="col-md-6">
-                        <a style="color: #fff" href="./php/nalog.php"><?php echo '<img src="./img/' . $_SESSION['slika'] . '" alt="" style="width: 50px; margin: 0 20px;" />' . $_SESSION['ime'] . " " . $_SESSION['prezime']; ?></a>
+                        <a style="color: #fff" href="./php/nalog.php"><?php echo $_SESSION['ime'] . " " . $_SESSION['prezime']; ?></a>
                     </div>
                 </nav>
             </div>
@@ -136,7 +136,6 @@ function izlogujSe()
     <script>
         AOS.init();
     </script>
-    <script src="js/script.js"></script>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>

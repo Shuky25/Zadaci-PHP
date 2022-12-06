@@ -1,5 +1,5 @@
 <footer>
-    <p id="footerText"></p>
+
     <div class="container">
         <div class="row">
             <div id="formaMejl" class="col-md-6">
@@ -12,8 +12,7 @@
                     </div>
                     <div class="form-control">
                         <label for="poruka">Vasa poruka: </label><br>
-                        <textarea name="formaPoruka" id="poruka" cols="30" rows="10"
-                            placeholder="Unesi poruku"></textarea>
+                        <textarea name="formaPoruka" id="poruka" cols="30" rows="10" placeholder="Unesi poruku"></textarea>
                     </div>
                     <button class="btn btn-primary" type="submit">Posalji mejl</button>
                 </form>
@@ -23,16 +22,17 @@
                 <hr>
                 <ul id="socialMediaList">
                     <li>
-                        <a href="#" class="fa fa-facebook"></a>
+                        <a href="https://sr-rs.facebook.com/" target="blank" class="fa fa-facebook"></a>
                     </li>
                     <li>
-                        <a href="#" class="fa fa-instagram"></a>
+                        <a href="https://www.instagram.com/" target="blank" class="fa fa-instagram"></a>
                     </li>
                     <li>
-                        <a href="#" class="fa fa-youtube"></a>
+                        <a href="https://www.youtube.com/" target="blank" class="fa fa-youtube"></a>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
+    <p id="footerText"><?php echo "&copy; " . date("Y") . " by Vojin Sundovic"; ?></p>
 </footer>

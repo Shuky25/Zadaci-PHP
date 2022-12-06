@@ -45,7 +45,9 @@ if (empty($_SESSION['ime'])) {
                         $_SESSION['mejl'] = $row['email'];
                         $_SESSION['psw'] = $row['password'];
                         $_SESSION['slika'] = $row['slika'];
-                        header("location: ../index.php");
+                        //header("location: ../index.php");
+                        echo "<script>alert('Uspesno ste se ulogovali!');</script>";
+                        header('refresh:0;url=../index.php');
                         exit();
                     } else {
                         $stanje = "Sifre se ne podudaraju";
@@ -81,9 +83,7 @@ if (empty($_SESSION['ime'])) {
                         </ul>
                     </div>
                     <div class="col-md-6">
-                            <a style="color: #fff" href="./nalog.php">
-                                <?php echo '<img src="../img/' . $_SESSION['slika'] . '" alt="" style="width: 50px; margin: 0 20px;" />' . $_SESSION['ime'] . " " . $_SESSION['prezime']; ?>
-                            </a>
+                        <a style="color: #fff" href="./php/nalog.php"><?php echo $_SESSION['ime'] . " " . $_SESSION['prezime']; ?></a>
                     </div>
                 </nav>
             </div>
@@ -100,13 +100,15 @@ if (empty($_SESSION['ime'])) {
                 </div>
                 <div class="form-control">
                     <label for="email">Sifra:</label><br>
-                    <input type="text" placeholder="Unesite sifru" name="psw"><br>
+                    <input type="password" placeholder="Unesite sifru" name="psw"><br>
                 </div>
                 <button type="submit" class="btn btn-primary">Loguj se</button>
                 <?php echo $stanje; ?>
             </form>
         </div>
     </section>
+
+    <?php include "./components/footer.php"; ?>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>

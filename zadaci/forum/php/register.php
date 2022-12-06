@@ -53,11 +53,14 @@ $stanje = "";
                     $sql = "INSERT INTO korisnici(email, password, ime, prezime) VALUES('$email', '$psw', '$ime', '$prezime')";
 
                     if (mysqli_query($conn, $sql)) {
-                        header("location: ../index.php");
+                        echo "<script>alert('Uspesno ste se registrovali!');</script>";
+                        header('refresh:0;url=../index.php');
+                        //header("location: ../index.php");
                         exit();
                     } else {
-                        echo "<script>alert('Registracija nije uspela!')";
-                        header("location: ./register.php");
+                        echo "<script>alert('Registracija nije uspela!');</script>";
+                        header('refresh:0;url=../index.php');
+                        //header("location: ./register.php");
                         exit();
                     }
                 }
@@ -92,9 +95,7 @@ $stanje = "";
                         </ul>
                     </div>
                     <div class="col-md-6">
-                            
-                            <a style="color: #fff" href="./nalog.php"><?php echo '<img src="../img/' . $_SESSION['slika'] . '" alt="" style="width: 50px; margin: 0 20px;" />' . $_SESSION['ime'] . " " . $_SESSION['prezime']; ?></a>
-                        
+                        <a style="color: #fff" href="./php/nalog.php"><?php echo $_SESSION['ime'] . " " . $_SESSION['prezime']; ?></a>
                     </div>
                 </nav>
             </div>
@@ -111,11 +112,11 @@ $stanje = "";
                 </div>
                 <div class="form-control">
                     <label for="email">Sifra:</label><br>
-                    <input type="text" placeholder="Unesite sifru" name="psw"><br>
+                    <input type="password" placeholder="Unesite sifru" name="psw"><br>
                 </div>
                 <div class="form-control">
                     <label for="email">Ponovljena sifra:</label><br>
-                    <input type="text" placeholder="Ponovite sifru" name="psw2"><br>
+                    <input type="password" placeholder="Ponovite sifru" name="psw2"><br>
                 </div>
                 <div class="form-control">
                     <label for="email">Ime:</label><br>
@@ -131,7 +132,7 @@ $stanje = "";
         </div>
     </section>
 
-
+    <?php include "./components/footer.php"; ?>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>

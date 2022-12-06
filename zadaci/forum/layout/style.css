@@ -44,8 +44,8 @@ section#nalog h1 {
 }
 
 section#forma {
-    height: 80vh;
-    margin-top: 50px;
+    /*height: 80vh;*/
+    margin: 50px auto;
 }
 
 section#tema,
@@ -77,7 +77,7 @@ section#forma .container form .form-control {
     text-align: center;
 }
 
-section#forma .container form input[type=text] {
+section#forma .container form input[type=text],section#forma .container form input[type=password]  {
     padding: 10px 20px;
     width: 90%;
 }
@@ -160,6 +160,7 @@ section#nalog .container .col-md-6 a:hover {
 
 footer {
     background-color: #333;
+    padding: 40px 10px 0 10px;
 }
 
 footer p {
