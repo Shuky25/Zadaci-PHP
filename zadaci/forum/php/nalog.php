@@ -74,14 +74,18 @@ function izlogujSe()
                     <div class="slika">
                         <img src="../img/user.png" alt="slika" id="slika" class="img-fluid">
                         <div class="middle">
-                            <a class="fa fa-pencil" href="./promeniSliku.php"></a>
+                            <form action="novaSlika.php" method="post" enctype="multipart/form-data">
+                                <input type="file" class="fa fa-pencil" name="fajl" id="fajl"/>
+                                <input type="submit" name="submit" value="Sacuvaj">
+                            </form>
+                            <!-- <a class="fa fa-pencil" href="./promeniSliku.php"></a> -->
                         </div>
                         <!-- <div id="slika">dwads</div> -->
                     </div>
                     <?php echo '<p class="ime">' . $_SESSION["ime"] . ' ' . $_SESSION['prezime']; ?>
                 </div>
                 <div class="col-md-6">
-                    <a class="fa fa-sign-out" href="./logout.php"></a>
+                    <a class="fa fa-sign-out" href="./logout.php" style="width: 5%;"></a>
                 </div>
             </div>
             <hr>
