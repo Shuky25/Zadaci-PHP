@@ -24,7 +24,7 @@ if(move_uploaded_file($image_file["tmp_name"], "../img/" . $_SESSION["ime"] . $i
     echo "Uploadovano";
 
     require "konekcija.php";
-    $sql = "UPDATE korisnici SET slika='" . $_SESSION["ime"] . $image_extension . "' WHERE emajl='" . $_SESSION["mejl"]."'";
+    $sql = "UPDATE korisnici SET slika='" . $_SESSION["ime"] . $image_extension . "' WHERE email='" . $_SESSION["mejl"]."'";
     if(mysqli_query($conn, $sql)) {
         echo "ok";
     }
@@ -32,9 +32,11 @@ if(move_uploaded_file($image_file["tmp_name"], "../img/" . $_SESSION["ime"] . $i
         echo "nije ok";
     }
 
-    /* echo "<script>alert('Uspesno uploadovana slika!');</script>";
+    echo "<script>alert('Uspesno uploadovana slika!');</script>";
     header('refresh:0;url=../index.php');
-    exit(); */
+    exit();
 }
-else echo "Nije";
+else {
+    echo "Nije oke3j";
+}
 ?>

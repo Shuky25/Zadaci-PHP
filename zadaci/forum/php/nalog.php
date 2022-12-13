@@ -72,7 +72,7 @@ function izlogujSe()
             <div class="row">
                 <div class="col-md-6">
                     <div class="slika">
-                        <img src="../img/user.png" alt="slika" id="slika" class="img-fluid">
+                        <img src="../img/<?php echo $_SESSION['slika']; ?>" alt="slika" id="slika" class="img-fluid">
                         <div class="middle">
                             <form action="novaSlika.php" method="post" enctype="multipart/form-data">
                                 <input type="file" class="fa fa-pencil" name="fajl" id="fajl"/>
